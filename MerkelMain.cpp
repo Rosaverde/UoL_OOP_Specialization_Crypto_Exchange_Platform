@@ -1,5 +1,7 @@
 #include "MerkelMain.h"
 #include <iostream>
+#include <vector>
+#include "OrderBookEntry.h"
 
 MerkelMain::MerkelMain()
 {
@@ -8,7 +10,19 @@ MerkelMain::MerkelMain()
 
 void MerkelMain::init()
 {
+    loadOrderBook();
+    int input;
+    while(true)
+    {
+        printMenu();
+        input = getUserOption();
+        processUserOption(input);
+    }
+};
 
+void MerkelMain::loadOrderBook()
+{
+    
 };
 
 void MerkelMain::printMenu()
@@ -32,22 +46,23 @@ int MerkelMain::getUserOption()
 {
     int userOption;
 
-    std::cout << "Type 1-6 " << std::endl;
+    std::cout << "Type 1-6 : ";
     std::cin >> userOption;
+    std::cout << "===================" << std::endl;
     std::cout << "You chose: " << userOption << std::endl;
 
     return userOption;
-}
+};
 
 void MerkelMain::printHelp()
 {
     std::cout << "Help - your aim is to make money. Analyse the market and amke bids and offers. " << std::endl;
-}
+};
 
 void MerkelMain::printMarketStats()
 {
-    std::cout << "Market looks good" << std::endl;
-}
+    std::cout << "OrderBook contains : " << orders.size() << " entries" << std::endl;
+};
 
 void MerkelMain::enterOffer()
 {
@@ -70,6 +85,7 @@ void MerkelMain::goToNextTimeFrame()
 
 void MerkelMain::processUserOption(int userOption)
 {
+    std::cout << "===================" << std::endl;
     if (userOption == 0)
     {
         std::cout << "Invalid choice. Choose 1-6" << std::endl;
@@ -98,4 +114,5 @@ void MerkelMain::processUserOption(int userOption)
     {
         goToNextTimeFrame();
     }
+    std::cout << "===================" << std::endl;
 }
