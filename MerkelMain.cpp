@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "OrderBookEntry.h"
+#include "CSVReader.h"
 
 MerkelMain::MerkelMain()
 {
@@ -22,7 +23,7 @@ void MerkelMain::init()
 
 void MerkelMain::loadOrderBook()
 {
-    
+    orders = CSVReader::readCSV("20200317.csv");
 };
 
 void MerkelMain::printMenu()
