@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "OrderBookEntry.h"
+#include "OrderBook.h"
 
 class MerkelMain
 {
@@ -9,7 +10,6 @@ class MerkelMain
         MerkelMain();
         void init();
     private:
-        void loadOrderBook();
         void printMenu();
         int getUserOption();
         void printHelp();
@@ -20,5 +20,5 @@ class MerkelMain
         void goToNextTimeFrame();
         void processUserOption(int userOption);
 
-        std::vector<OrderBookEntry> orders;
+        OrderBook orderBook{"20200317.csv"};
 };
