@@ -20,5 +20,7 @@ class MerkelMain
         void goToNextTimeFrame();
         void processUserOption(int userOption);
 
+        std::string currentTime;
+
         OrderBook orderBook{"20200317.csv"};
 };

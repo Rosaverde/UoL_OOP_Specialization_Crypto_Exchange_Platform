@@ -1,6 +1,6 @@
 #include "OrderBook.h"
 #include "CSVReader.h"
-#include <map>
+#include <map> 
 
 OrderBook::OrderBook(std::string filename)
 {
@@ -62,5 +62,28 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
         }
     }
     return min;
+}
+
+std::string OrderBook::getEarliestTime()
+{
+    return orders[0].timeStamp;
+}
+
+std::string OrderBook::getNextTime(std::string timeStamp)
+{
+    std::string next_timeStamp = "";
+    for(OrderBookEntry& e : orders)
+    {
+        if(e.timeStamp > timeStamp)
+        {
+            next_timeStamp = e.timeStamp;
+            break;
+        }
+    }
+    if(next_timeStamp == "")
+    {
+        next_timeStamp = orders[0].timeStamp;
+    }
+    return next_timeStamp;
 }
 

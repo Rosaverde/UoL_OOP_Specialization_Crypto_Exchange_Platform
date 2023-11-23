@@ -12,6 +12,9 @@ MerkelMain::MerkelMain()
 void MerkelMain::init()
 {
     int input;
+
+    currentTime = orderBook.getEarliestTime();
+
     while(true)
     {
         printMenu();
@@ -35,6 +38,8 @@ void MerkelMain::printMenu()
     std::cout << "6: Continue " << std::endl;
 
     std::cout << "===================" << std::endl;
+
+    std::cout << "Current time is: " << currentTime << std::endl;
 };
 
 int MerkelMain::getUserOption()
@@ -61,6 +66,10 @@ void MerkelMain::printMarketStats()
     for(std::string const& p : orderBook.getKnownProducts())
     {
         std::cout << "Product: " << p << std::endl;
+        std::vector<OrderBookEntry> entries = orderBook.getOrders(OrderBookType::ask, p, currentTime);
+        std::cout << "Asks seen: " << entries.size() << std::endl;
+        std::cout << "Max ask: " << OrderBook::getHightPrice(entries) << std::endl;
+        std::cout << "Min ask: " << OrderBook::getLowPrice(entries) << std::endl;
     }
 };
 
@@ -81,6 +90,7 @@ void MerkelMain::printWallet()
 void MerkelMain::goToNextTimeFrame()
 {
     std::cout << "Going to next time frame " << std::endl;
+    currentTime = orderBook.getNextTime(currentTime);
 }
 
 void MerkelMain::processUserOption(int userOption)
