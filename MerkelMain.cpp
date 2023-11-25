@@ -44,10 +44,20 @@ void MerkelMain::printMenu()
 
 int MerkelMain::getUserOption()
 {
-    int userOption;
-
+    int userOption = 0;
+    std::string line;
     std::cout << "Type 1-6 : ";
-    std::cin >> userOption;
+    std::getline(std::cin, line);
+    try
+    {
+        userOption = std::stoi(line);
+
+    }
+    catch(const std::exception& e)
+    {
+        
+    }
+    
     std::cout << "===================" << std::endl;
     std::cout << "You chose: " << userOption << std::endl;
 
@@ -61,8 +71,6 @@ void MerkelMain::printHelp()
 
 void MerkelMain::printMarketStats()
 {
-    //std::cout << "OrderBook contains : " << orders.size() << " entries" << std::endl;
-
     for(std::string const& p : orderBook.getKnownProducts())
     {
         std::cout << "Product: " << p << std::endl;
@@ -87,7 +95,15 @@ void MerkelMain::enterAsk()
     }
     else
     {
-        OrderBookEntry obe = CSVReader::stringToOorderBookEntry(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
+        try
+        {
+            OrderBookEntry obe = CSVReader::stringToOorderBookEntry(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "MerkelMain::enterAsk Badinput !" << std::endl;
+        }
+        
     }
 }
 
